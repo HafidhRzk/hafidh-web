@@ -1,0 +1,148 @@
+.navbar {
+    height: 7vh;
+}
+
+.container-main {
+    display: flex;
+    background-color: #dcdfe4;
+    height: 93vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.container-content {
+    width: 80%;
+    display: flex;
+    border: rgb(255, 255, 255) 2px solid;
+    border-radius: 5px;
+    background-color: white;
+    padding: 40px;
+    box-shadow: 1px 3px rgb(184, 181, 181);       
+}
+
+.container-content .left-side {
+    flex: 60%;
+}
+
+.container-content .right-side {
+    flex: 40%;
+}
+
+.container-content .left-side .button-download {
+    display: flex;
+}
+
+.container-content .left-side .button-download .contact-button {
+    display: flex;
+    background-color: #111727;
+    border-radius: 20px;
+    color: white;
+    padding: 5px 20px;
+    text-align: center;
+    font-size: 16px;
+}
+.container-content .left-side .button-download .download-cv {
+    display: flex;
+    padding-left: 10px;
+    text-align: center;
+    font-size: 18px;
+}
+
+.container-content .social-media {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    font-size: 150%;
+    padding-top: 40px;
+}
+
+.container-content .right-side {
+    display: flex;
+    border: 3px solid white;
+    border-radius: 10px;
+    font-family: futura md bt;
+    text-align: center;
+    box-shadow: 1px 3px rgb(184, 181, 181);
+}
+
+.btn-project {
+    border: 0;
+    border-radius: 8px;
+    width: 49%;
+}
+
+/*Project Detail*/
+.project-detail {
+    display: flex;
+    justify-content: center;
+    background-color: #c4c4c4;
+    font-family: futura md bt;
+    padding: 8px;
+}
+    
+.project-detail-container {
+    width: 80%;
+    margin: 40px;
+}
+    
+.project-detail-container .top-content {
+    display: flex;
+    padding: 40px;
+}
+    
+.project-detail-container .top-content .top-left {
+    flex: 65%;
+    padding: 20px;
+}
+    
+.project-detail-container .top-content .top-left img {
+    width: 100%;
+    object-fit: cover;
+}
+    
+.project-detail-container .top-content .top-right {
+    flex: 35%;
+    padding: 40px;
+}
+    
+.fa-solid {
+    padding: 5px;
+}
+    
+.fa-brands {
+    padding: 5px;
+}
+    
+.project-detail-tech {
+    display:flex;
+    font-size: 100%;
+}
+
+/*Add Project*/
+.technologies .tech-left {
+    flex: 50%;
+}
+    
+.technologies .tech-left .NodeJS {
+    display: flex;
+    width: 100%;
+}
+    
+.technologies .tech-left .ReactJS {
+    display: flex;
+    width: 100%;
+}
+
+.technologies .tech-right {
+    flex: 50%;
+}
+    
+.technologies .tech-right .NextJS {
+    display: flex;
+    width: 100%;
+}
+    
+.technologies .tech-right .TextScript {
+    display: flex;
+    width: 100%;
+}
