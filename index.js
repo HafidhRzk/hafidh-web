@@ -14,7 +14,7 @@ db.connect(function (err, _, done) {
 });
 
 const app = express();
-const PORT = 2025;
+const PORT = process.env.PORT || 2025;
 
 const isLogin = false;
 
@@ -332,7 +332,7 @@ app.get('/project-detail/:id', function (req, res) {
   });
 });
 
-app.listen(process.env.PORT||PORT, function () {
+app.listen(PORT, function () {
     console.log(`Server starting on PORT: ${PORT}`);
 });
 
