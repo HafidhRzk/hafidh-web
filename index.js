@@ -332,7 +332,7 @@ app.get('/project-detail/:id', function (req, res) {
   });
 });
 
-app.listen(PORT, function () {
+app.listen(process.env.PORT||PORT, function () {
     console.log(`Server starting on PORT: ${PORT}`);
 });
 
