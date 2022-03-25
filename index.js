@@ -54,7 +54,7 @@ app.get('/', function (req, res) {
       done();
 
     let data = result.rows;
-    console.log(result.rows);
+    // console.log(result.rows);
 
     let dataProjects = data.map(function (data) {
       let techno = data.technologies;
@@ -76,8 +76,8 @@ app.get('/', function (req, res) {
 
     return {
       ...data,
-      post_at: getFullTime(data.post_at),
-      distance: getDistanceTime(data.post_at),
+      post_at: getFullTime(data.posted_at),
+      distance: getDistanceTime(data.posted_at),
       duration: getDurationTime(new Date(data.startDate), new Date(data.endDate)),
       author: {
         user_id,
@@ -89,7 +89,10 @@ app.get('/', function (req, res) {
       tech: tech,
   };
   });
-  console.log(dataProjects);
+  // console.log(dataProjects);
+  // console.log(post_at);
+  // console.log(distance);
+  // console.log(duration);
   res.render('index', {user: req.session.user,
     isLogin: req.session.isLogin, 
     projects: dataProjects});
@@ -108,11 +111,40 @@ app.post('/', upload.single('image'), function (req, res) {
   
     db.connect(function (err, client, done) {
       if (err) throw err;
+
+      let month = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December',
+      ];
+
+      let time = new Date();
+      let date = time.getDate();
+      let monthIndex = time.getMonth();
+      let year = time.getFullYear();
+
+      let hour = time.getHours();
+      let minute = time.getMinutes();
+      let seconds = time.getSeconds();
+
+      let posted_at = `${year}-${month[monthIndex]}-${date} ${hour}:${minute}:${seconds}`;
+
+      console.log(posted_at);
   
       const query = `INSERT INTO public.tb_project(title, start_date, end_date, 
-        description, technologies, image, author_id) VALUES
+        description, technologies, image, author_id, posted_at) VALUES
       ('${data.title}','${data.start_date}','${data.end_date}',
-      '${data.description}', '{${data.tech}}', '${req.file.filename}', '${req.session.user.id}')`;
+      '${data.description}', '{${data.technologies}}', '${req.file.filename}', '${req.session.user.id}',
+      '{${posted_at}}')`;
 
       client.query(query, function (err) {
         if (err) throw err;
@@ -251,6 +283,8 @@ app.get('/update-project/:id', function (req, res) {
 //       SET title='${data.title}', start_date="${data.start_date}", end_date="${data.end_date}",
 //       description='${data.description}', technologies='{${data.technologies}}', image='${data.image}' WHERE id=${id}`;
 
+//       console.log(query);
+
 //       client.query(query, function (err) {
 //         if (err) throw err;
 //         done();
@@ -277,8 +311,9 @@ app.get('/project-detail/:id', function (req, res) {
   
         data = {
           ...data,
-          post_at: getFullTime(data.post_at),
-          distance: getDistanceTime(data.post_at),
+          posted_at: new Date(),
+          post_at: getFullTime(posted_at),
+          distance: getDistanceTime(data.posted_at),
           duration: getDurationTime(new Date(data.startDate), new Date(data.endDate)),
           author: {
             user_id: data.user_id,
@@ -301,7 +336,7 @@ app.listen(PORT, function () {
     console.log(`Server starting on PORT: ${PORT}`);
 });
 
-function getFullTime() {
+function getFullTime(time) {
     let month = [
       'January',
       'February',
@@ -317,15 +352,16 @@ function getFullTime() {
       'December',
     ];
 
-    let time = new Date();
-    let date = time.getDate();
-    let monthIndex = time.getMonth();
-    let year = time.getFullYear();
+    let times = new Date(time);
+    let date = times.getDate();
+    let monthIndex = times.getMonth();
+    let year = times.getFullYear();
   
-    let hour = time.getHours();
-    let minute = time.getMinutes();
+    let hour = times.getHours();
+    let minute = times.getMinutes();
+    let seconds = times.getSeconds();
   
-    let fullTime = `${date} ${month[monthIndex]} ${year} ${hour}:${minute} WIB`;
+    let fullTime = `${date} ${month[monthIndex]} ${year} ${hour}:${minute}:${seconds} WIB`;
   
     return fullTime;
 };
@@ -363,8 +399,8 @@ function getDurationTime(start_date, end_date) {
 
   // let start_date = new Date();
   // let end_date = new Date();
-  let timeStart = new Date(start_date);
-  let timeEnd = new Date(end_date);
+  let timeStart = Date.now(start_date);
+  let timeEnd = Date.now(end_date);
 
   let duration = timeEnd - timeStart
   
